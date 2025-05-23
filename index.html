@@ -1,11 +1,11 @@
-# Final clean version with horizontal alignment and no rogue text
-final_corrected_path = "/mnt/data/index_scroll_final_clean.html"
+# Simplify animation: logo moves from center to top-middle, then nav buttons fade in
+simple_nav_html_path = "/mnt/data/index_scroll_simplified_nav.html"
 
-final_corrected_html = """
+simple_scroll_html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calvo-Soto Solutions</title>
   <style>
@@ -13,61 +13,65 @@ final_corrected_html = """
       background-color: #f5f3eb;
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #14413a;
       height: 200vh;
       overflow-x: hidden;
+      color: #14413a;
     }
 
-    .branding-container {
+    header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
       height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.6s ease-in-out;
+      transition: all 0.6s ease;
       z-index: 1000;
-      padding: 0 20px;
     }
 
-    .branding-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      transition: all 0.6s ease-in-out;
-    }
-
-    .branding-inner img {
-      width: 200px;
-      transition: all 0.6s ease-in-out;
-    }
-
-    .branding-inner h1 {
-      font-size: 2rem;
-      margin: 0;
-      transition: all 0.6s ease-in-out;
-    }
-
-    .scrolled {
+    header.scrolled {
       height: 70px;
-      justify-content: flex-start;
-      align-items: center;
+      flex-direction: row;
+      justify-content: center;
       background-color: #f5f3eb;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
-    .scrolled .branding-inner {
-      justify-content: flex-start;
+    .logo {
+      width: 200px;
+      transition: all 0.6s ease;
+      cursor: pointer;
     }
 
-    .scrolled .branding-inner img {
+    header.scrolled .logo {
       width: 50px;
     }
 
-    .scrolled .branding-inner h1 {
-      font-size: 1.2rem;
+    nav {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      margin-left: 20px;
+      font-size: 1rem;
+    }
+
+    header.scrolled nav {
+      display: flex;
+      gap: 20px;
+      opacity: 1;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #14413a;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
     }
 
     .spacer {
@@ -77,22 +81,25 @@ final_corrected_html = """
 </head>
 <body>
 
-  <div class="branding-container" id="branding">
-    <div class="branding-inner">
-      <img src="logo.jpeg" alt="CSS Logo" />
-      <h1>Calvo-Soto Solutions</h1>
-    </div>
-  </div>
+  <header id="mainHeader">
+    <img src="logo.jpeg" alt="CSS Logo" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"/>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#media">Media Platform</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
 
   <div class="spacer"></div>
 
   <script>
     window.addEventListener("scroll", function () {
-      const brand = document.getElementById("branding");
+      const header = document.getElementById("mainHeader");
       if (window.scrollY > 50) {
-        brand.classList.add("scrolled");
+        header.classList.add("scrolled");
       } else {
-        brand.classList.remove("scrolled");
+        header.classList.remove("scrolled");
       }
     });
   </script>
@@ -101,7 +108,7 @@ final_corrected_html = """
 </html>
 """
 
-with open(final_corrected_path, "w") as file:
-    file.write(final_corrected_html.strip())
+with open(simple_nav_html_path, "w") as file:
+    file.write(simple_scroll_html.strip())
 
-final_corrected_path
+simple_nav_html_path
