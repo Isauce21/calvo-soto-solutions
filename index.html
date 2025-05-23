@@ -1,12 +1,7 @@
-# Refactor the layout to match user's annotations:
-# - Logo centered with title "Calvo-Soto Solutions" below it on initial load
-# - On scroll: logo shrinks and moves to center top
-# - About Us and Services to the left of logo
-# - Media Platform and Contact Us to the right of logo
+# Final polish: hide the "Calvo-Soto Solutions" text on scroll and balance nav layout with spacing
+final_polished_nav_path = "/mnt/data/index_scroll_nav_final.html"
 
-refined_layout_path = "/mnt/data/index_scroll_nav_layout.html"
-
-refined_layout_html = """
+final_polished_nav_html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +51,7 @@ refined_layout_html = """
 
     header.scrolled .logo-title {
       flex-direction: row;
-      gap: 10px;
+      justify-content: center;
     }
 
     .logo {
@@ -66,24 +61,28 @@ refined_layout_html = """
     }
 
     header.scrolled .logo {
-      width: 50px;
+      width: 60px;
     }
 
     .title {
       font-size: 2rem;
       font-weight: bold;
       margin-top: 10px;
-      transition: all 0.6s ease;
+      transition: all 0.4s ease;
     }
 
     header.scrolled .title {
-      font-size: 1.2rem;
-      margin-top: 0;
+      opacity: 0;
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      margin: 0;
     }
 
     .nav-left, .nav-right {
       display: none;
-      gap: 20px;
+      gap: 30px;
     }
 
     header.scrolled .nav-left,
@@ -95,6 +94,8 @@ refined_layout_html = """
       text-decoration: none;
       color: #14413a;
       font-weight: bold;
+      font-size: 1rem;
+      padding: 10px 0;
     }
 
     nav a:hover {
@@ -140,7 +141,7 @@ refined_layout_html = """
 </html>
 """
 
-with open(refined_layout_path, "w") as file:
-    file.write(refined_layout_html.strip())
+with open(final_polished_nav_path, "w") as file:
+    file.write(final_polished_nav_html.strip())
 
-refined_layout_path
+final_polished_nav_path
