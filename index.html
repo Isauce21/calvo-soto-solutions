@@ -1,7 +1,12 @@
-# Simplify animation: logo moves from center to top-middle, then nav buttons fade in
-simple_nav_html_path = "/mnt/data/index_scroll_simplified_nav.html"
+# Refactor the layout to match user's annotations:
+# - Logo centered with title "Calvo-Soto Solutions" below it on initial load
+# - On scroll: logo shrinks and moves to center top
+# - About Us and Services to the left of logo
+# - Media Platform and Contact Us to the right of logo
 
-simple_scroll_html = """
+refined_layout_path = "/mnt/data/index_scroll_nav_layout.html"
+
+refined_layout_html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,11 +28,11 @@ simple_scroll_html = """
       top: 0;
       left: 0;
       width: 100%;
+      height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      height: 100vh;
       transition: all 0.6s ease;
       z-index: 1000;
     }
@@ -35,9 +40,23 @@ simple_scroll_html = """
     header.scrolled {
       height: 70px;
       flex-direction: row;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
       background-color: #f5f3eb;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .logo-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.6s ease;
+    }
+
+    header.scrolled .logo-title {
+      flex-direction: row;
+      gap: 10px;
     }
 
     .logo {
@@ -50,18 +69,26 @@ simple_scroll_html = """
       width: 50px;
     }
 
-    nav {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-      margin-left: 20px;
-      font-size: 1rem;
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: all 0.6s ease;
     }
 
-    header.scrolled nav {
-      display: flex;
+    header.scrolled .title {
+      font-size: 1.2rem;
+      margin-top: 0;
+    }
+
+    .nav-left, .nav-right {
+      display: none;
       gap: 20px;
-      opacity: 1;
+    }
+
+    header.scrolled .nav-left,
+    header.scrolled .nav-right {
+      display: flex;
     }
 
     nav a {
@@ -82,10 +109,15 @@ simple_scroll_html = """
 <body>
 
   <header id="mainHeader">
-    <img src="logo.jpeg" alt="CSS Logo" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"/>
-    <nav>
+    <nav class="nav-left">
       <a href="#about">About Us</a>
       <a href="#services">Services</a>
+    </nav>
+    <div class="logo-title" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <img src="logo.jpeg" alt="CSS Logo" class="logo"/>
+      <div class="title">Calvo-Soto Solutions</div>
+    </div>
+    <nav class="nav-right">
       <a href="#media">Media Platform</a>
       <a href="#contact">Contact Us</a>
     </nav>
@@ -108,7 +140,7 @@ simple_scroll_html = """
 </html>
 """
 
-with open(simple_nav_html_path, "w") as file:
-    file.write(simple_scroll_html.strip())
+with open(refined_layout_path, "w") as file:
+    file.write(refined_layout_html.strip())
 
-simple_nav_html_path
+refined_layout_path
