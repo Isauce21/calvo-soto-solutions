@@ -1,96 +1,102 @@
-# Proper fix: only one logo+title element, initially centered, that shifts up on scroll
-final_html_path = "/mnt/data/index_scroll_clean.html"
+# Update the file to smooth the transition, align the logo and title horizontally, and remove visual artifacts
+final_polished_path = "/mnt/data/index_scroll_polished.html"
 
-final_scroll_html = """
+final_polished_html = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calvo-Soto Solutions</title>
-    <style>
-        body {
-            background-color: #f5f3eb;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #14413a;
-            height: 200vh;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calvo-Soto Solutions</title>
+  <style>
+    body {
+      background-color: #f5f3eb;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #14413a;
+      height: 200vh;
+      overflow-x: hidden;
+    }
 
-        .branding-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: all 0.4s ease;
-            z-index: 1000;
-        }
+    .branding-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.6s ease-in-out;
+      z-index: 1000;
+      padding: 0 20px;
+    }
 
-        .branding-container img {
-            width: 200px;
-            transition: all 0.4s ease;
-        }
+    .branding-inner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.6s ease-in-out;
+    }
 
-        .branding-container h1 {
-            font-size: 2rem;
-            margin-top: 10px;
-            transition: all 0.4s ease;
-        }
+    .branding-inner img {
+      width: 200px;
+      transition: all 0.6s ease-in-out;
+    }
 
-        .scrolled {
-            height: 60px;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 0 20px;
-        }
+    .branding-inner h1 {
+      font-size: 2rem;
+      margin: 0;
+      transition: all 0.6s ease-in-out;
+    }
 
-        .scrolled img {
-            width: 50px;
-        }
+    .scrolled {
+      height: 70px;
+      justify-content: flex-start;
+      align-items: center;
+      background-color: #f5f3eb;
+    }
 
-        .scrolled h1 {
-            font-size: 1.2rem;
-            margin-left: 10px;
-            margin-top: 0;
-        }
+    .scrolled .branding-inner img {
+      width: 50px;
+    }
 
-        .spacer {
-            height: 150vh;
-        }
-    </style>
+    .scrolled .branding-inner h1 {
+      font-size: 1.2rem;
+    }
+
+    .spacer {
+      height: 150vh;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="branding-container" id="branding">
-        <img src="logo.jpeg" alt="CSS Logo">
-        <h1>Calvo-Soto Solutions</h1>
+  <div class="branding-container" id="branding">
+    <div class="branding-inner">
+      <img src="logo.jpeg" alt="CSS Logo" />
+      <h1>Calvo-Soto Solutions</h1>
     </div>
+  </div>
 
-    <div class="spacer"></div>
+  <div class="spacer"></div>
 
-    <script>
-        window.addEventListener('scroll', function () {
-            const brand = document.getElementById('branding');
-            if (window.scrollY > 50) {
-                brand.classList.add('scrolled');
-            } else {
-                brand.classList.remove('scrolled');
-            }
-        });
-    </script>
+  <script>
+    window.addEventListener("scroll", function () {
+      const brand = document.getElementById("branding");
+      if (window.scrollY > 50) {
+        brand.classList.add("scrolled");
+      } else {
+        brand.classList.remove("scrolled");
+      }
+    });
+  </script>
 
 </body>
 </html>
 """
 
-with open(final_html_path, "w") as file:
-    file.write(final_scroll_html.strip())
+with open(final_polished_path, "w") as file:
+    file.write(final_polished_html.strip())
 
-final_html_path
+final_polished_path
